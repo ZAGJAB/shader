@@ -1,6 +1,3 @@
-// Author @patriciogv - 2015
-// http://patriciogonzalezvivo.com
-
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -21,17 +18,15 @@ void main(){
     vec2 b3 = step(vec2(0.03),vec2(1.-mod((st.x+0.05),1.),1.-mod((st.y+0.9),1.)));
     pct *= b3.x * b3.y;
     vec2 block_red =vec2(step(0.2,st.x),step(0.4,1.-st.y));
-    vec3 color_red = vec3(1.0,block_red.x>block_red.y?block_red.x:block_red.y,block_red.x>block_red.y?block_red.x:block_red.y);
+    vec3 color_red = vec3(1.0,max(block_red.x,block_red.y),max(block_red.x,block_red.y));
     color = vec3(pct*color_red);
     vec2 block_blue =vec2(step(0.22,1.-st.x),step(0.1,st.y));
-    vec3 color_blue = vec3(block_blue.x>block_blue.y?block_blue.x:block_blue.y,block_blue.x>block_blue.y?block_blue.x:block_blue.y,0.9);
+    vec3 color_blue = vec3(max(block_blue.x,block_blue.y),max(block_blue.x,block_blue.y),0.9);
     color = vec3(color*color_blue);
     
     vec2 block_yellow =vec2(step(0.05,1.-st.x),step(0.4,1.-st.y));
-    vec3 color_yellow = vec3(1.0,1.0,block_yellow.x>block_yellow.y?block_yellow.x:block_yellow.y);
+    vec3 color_yellow = vec3(1.0,1.0,max(block_yellow.x,block_yellow.y));
     color = vec3(color*color_yellow);
     
-
     gl_FragColor = vec4(color,1.0);
 }
-
